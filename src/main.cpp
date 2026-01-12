@@ -3,6 +3,7 @@
 // Optimized for 320KB RAM without PSRAM using advanced memory techniques
 
 #include <M5StickCPlus.h>
+#include <LittleFS.h>
 extern "C" {
 #include "../lib/doomgeneric/doomgeneric.h"
 #include "../lib/doomgeneric/doomkeys.h"
@@ -11,17 +12,17 @@ extern "C" {
 // Memory optimization: Use 8-bit indexed color mode
 #define CMAP256 1
 
-// Display configuration - native screen resolution
+// Display configuration - optimized for RAM constraints
 #define SCREEN_WIDTH 135
 #define SCREEN_HEIGHT 240
-#define DOOMGENERIC_RESX 135
-#define DOOMGENERIC_RESY 240
+#define DOOMGENERIC_RESX 60
+#define DOOMGENERIC_RESY 108
 
 // NOTE: Framebuffer is allocated by doomgeneric_Create() in doomgeneric.c
 // We don't declare it here to avoid duplication
 
-// Color palette - convert Doom's palette to RGB565
-static uint16_t doom_palette[256];
+// Color palette - convert Doom's palette to RGB565 (heap allocated to save BSS)
+static uint16_t* doom_palette = NULL;
 
 // Key queue for input handling
 #define KEY_QUEUE_SIZE 16
@@ -34,10 +35,6 @@ static struct {
 
 // Timing
 static uint32_t start_time_ms;
-
-// DMA buffer for faster screen updates (4KB chunks)
-#define DMA_BUFFER_SIZE 4096
-static uint16_t dma_buffer[DMA_BUFFER_SIZE];
 
 // Player state for controls
 static float player_turn_speed = 0.0f;
@@ -56,6 +53,11 @@ extern "C" void DG_Init() {
     key_queue.write_idx = 0;
     key_queue.read_idx = 0;
     
+    // Allocate palette on heap
+    if (!doom_palette) {
+        doom_palette = (uint16_t*)malloc(256 * sizeof(uint16_t));
+    }
+    
     // Initialize default Doom palette (we'll update this from WAD later)
     // For now, create a grayscale palette
     for (int i = 0; i < 256; i++) {
@@ -69,38 +71,27 @@ extern "C" void DG_Init() {
     Serial.printf("Framebuffer size: %d bytes\n", DOOMGENERIC_RESX * DOOMGENERIC_RESY);
 }
 
+// Line buffer allocated on heap to save BSS
+static uint16_t* rgb565_line = NULL;
+
 // Draw frame to LCD
 extern "C" void DG_DrawFrame() {
-    // Convert indexed color framebuffer to RGB565 and send to display
-    // Process in chunks to avoid huge static buffer
+    // Allocate line buffer on first call
+    if (!rgb565_line) {
+        rgb565_line = (uint16_t*)malloc(DOOMGENERIC_RESX * sizeof(uint16_t));
+    }
     
-    #define CHUNK_SIZE 1350  // Process 10 rows at a time (135 * 10)
-    uint16_t rgb565_chunk[CHUNK_SIZE];
-    
-    int pixel_count = DOOMGENERIC_RESX * DOOMGENERIC_RESY;
-    int chunks = (pixel_count + CHUNK_SIZE - 1) / CHUNK_SIZE;
-    
-    for (int chunk = 0; chunk < chunks; chunk++) {
-        int start_pixel = chunk * CHUNK_SIZE;
-        int end_pixel = start_pixel + CHUNK_SIZE;
-        if (end_pixel > pixel_count) end_pixel = pixel_count;
-        int chunk_size = end_pixel - start_pixel;
+    // Convert indexed color framebuffer to RGB565 line-by-line
+    for (int y = 0; y < DOOMGENERIC_RESY; y++) {
+        int src_offset = y * DOOMGENERIC_RESX;
         
-        // Convert this chunk to RGB565
-        for (int i = 0; i < chunk_size; i++) {
-            uint8_t color_index = DG_ScreenBuffer[start_pixel + i];
-            rgb565_chunk[i] = doom_palette[color_index];
+        // Convert this line to RGB565
+        for (int x = 0; x < DOOMGENERIC_RESX; x++) {
+            rgb565_line[x] = doom_palette[DG_ScreenBuffer[src_offset + x]];
         }
         
-        // Calculate row/col for this chunk
-        int start_y = start_pixel / DOOMGENERIC_RESX;
-        int start_x = start_pixel % DOOMGENERIC_RESX;
-        
-        // Push this chunk
-        int rows = chunk_size / DOOMGENERIC_RESX;
-        if (rows > 0) {
-            M5.Lcd.pushImage(0, start_y, DOOMGENERIC_RESX, rows, rgb565_chunk);
-        }
+        // Push line to top-left corner
+        M5.Lcd.pushImage(0, y, DOOMGENERIC_RESX, 1, rgb565_line);
     }
 }
 
@@ -198,11 +189,62 @@ extern "C" pixel_t* DG_ScreenBuffer;
 
 // Arduino setup
 void setup() {
-    // Create Doom instance with minimal arguments
+    Serial.begin(115200);
+    delay(500);
+    Serial.println("\n\n=== DOOM M5StickC Plus ===");
+    Serial.println("Step 1: Initializing M5...");
+    Serial.flush();
+    
+    M5.begin();
+    Serial.println("Step 2: M5 initialized!");
+    Serial.flush();
+    
+    M5.Lcd.setRotation(0);
+    M5.Lcd.fillScreen(BLACK);
+    M5.Lcd.setTextColor(WHITE, BLACK);
+    M5.Lcd.setTextSize(1);
+    M5.Lcd.setCursor(5, 20);
+    M5.Lcd.println("DOOM");
+    M5.Lcd.setCursor(5, 35);
+    M5.Lcd.println("Mounting LittleFS...");
+    
+    Serial.println("Step 3: Mounting LittleFS...");
+    Serial.flush();
+    
+    if (!LittleFS.begin(false)) {
+        Serial.println("LittleFS Mount Failed!");
+        M5.Lcd.setCursor(5, 50);
+        M5.Lcd.println("FS FAILED!");
+        while(1) delay(1000);
+    }
+    
+    Serial.println("Step 4: LittleFS mounted OK");
+    
+    // List files
+    File root = LittleFS.open("/");
+    File file = root.openNextFile();
+    Serial.println("Files in LittleFS:");
+    while(file) {
+        Serial.printf("  %s (%d bytes)\n", file.name(), file.size());
+        file = root.openNextFile();
+    }
+    Serial.flush();
+    
+    M5.Lcd.setCursor(5, 50);
+    M5.Lcd.println("FS OK!");
+    
+    M5.Lcd.setCursor(5, 65);
+    M5.Lcd.println("Starting...");
+    
+    Serial.printf("Step 5: Starting DOOM at %dx%d\n", DOOMGENERIC_RESX, DOOMGENERIC_RESY);
+    Serial.flush();
+    delay(2000);
+    
+    // Create Doom instance with IWAD from LittleFS
     char* argv[] = {
         (char*)"doom",
-        (char*)"-iwad", (char*)"doom1.wad",  // We'll need to embed this
-        (char*)"-skill", (char*)"2",  // Medium difficulty
+        (char*)"-iwad", (char*)"/doom1.wad",
+        (char*)"-skill", (char*)"1",  // Easy difficulty
         (char*)"-nomusic",
         (char*)"-nosound"
     };

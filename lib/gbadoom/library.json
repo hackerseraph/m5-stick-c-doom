@@ -1,0 +1,48 @@
+{
+  "name": "GBADoom",
+  "version": "1.0.0",
+  "description": "GBA DOOM port for ESP32",
+  "keywords": "doom, gba, esp32",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doomhack/GBADoom.git"
+  },
+  "authors": [
+    {
+      "name": "doomhack"
+    }
+  ],
+  "frameworks": "arduino",
+  "platforms": "espressif32",
+  "build": {
+    "flags": [
+      "-DHAVE_CONFIG_H",
+      "-DHAVE_UNISTD_H",
+      "-Wno-error",
+      "-Wno-maybe-uninitialized",
+      "-Wno-missing-field-initializers",
+      "-Wno-uninitialized",
+      "-Wno-unused-value",
+      "-Wno-switch",
+      "-Wno-unused-but-set-parameter",
+      "-Wno-misleading-indentation",
+      "-Wno-pointer-sign",
+      "-Wno-parentheses"
+    ],
+    "srcFilter": [
+      "+<*.c>",
+      "+<*.cpp>",
+      "+<*.h>",
+      "-<sdl/>",
+      "-<lcd_esp32c3.c.bak>",
+      "-<input_esp32c3.c.bak>",
+      "-<i_main_esp32c3.c.bak>",
+      "-<lcd_m5.cpp>",
+      "-<input_m5.cpp>",
+      "-<snd_c3.c>",
+      "-<dbopl.c>",
+      "-<i_audio.c>"
+    ],
+    "libArchive": false
+  }
+}

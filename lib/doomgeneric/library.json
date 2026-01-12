@@ -1,7 +1,0 @@
-# Exclude platform-specific doomgeneric ports from compilation
-# We only need the core Doom engine, not SDL/Windows/Linux implementations
-
-src_filter = 
-    +<*>
-    -<doomgeneric_*.c>
-    +<doomgeneric.c>

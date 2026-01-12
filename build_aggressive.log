@@ -1,0 +1,120 @@
+Processing m5stick-c-plus (platform: espressif32; board: m5stick-c; framework: arduino)
+--------------------------------------------------------------------------------
+Library Manager: Could not parse manifest -> Expecting value: line 1 column 1 (char 0)
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/m5stick-c.html
+PLATFORM: Espressif 32 (6.12.0) > M5Stick-C
+HARDWARE: ESP32 240MHz, 320KB RAM, 4MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES: 
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - tool-esptoolpy @ 2.40900.250804 (4.9.0) 
+ - toolchain-xtensa-esp32 @ 8.4.0+2021r2-patch5
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Warning! Ignoring broken library manifest in /home/marcus/Documents/PlatformIO/Projects/M5-Stick-C-Plus-Doom/lib/doomgeneric
+Library Manager: Could not parse manifest -> Expecting value: line 1 column 1 (char 0)
+Found 35 compatible libraries
+Scanning dependencies...
+Library Manager: Could not parse manifest -> Expecting value: line 1 column 1 (char 0)
+Dependency Graph
+|-- M5StickCPlus @ 0.1.1
+|-- doomgeneric
+Building in release mode
+Compiling .pio/build/m5stick-c-plus/src/main.cpp.o
+Building .pio/build/m5stick-c-plus/bootloader.bin
+Generating partitions .pio/build/m5stick-c-plus/partitions.bin
+esptool.py v4.9.0
+Creating esp32 image...
+Merged 1 ELF section
+Successfully created esp32 image.
+Compiling .pio/build/m5stick-c-plus/libfff/SPI/SPI.cpp.o
+Compiling .pio/build/m5stick-c-plus/libfb8/Wire/Wire.cpp.o
+Compiling .pio/build/m5stick-c-plus/lib1a4/FS/FS.cpp.o
+Compiling .pio/build/m5stick-c-plus/lib1a4/FS/vfs_api.cpp.o
+Compiling .pio/build/m5stick-c-plus/lib37f/SPIFFS/SPIFFS.cpp.o
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/AXP192.cpp.o
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/Fonts/Font16.c.o
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/Fonts/Font32rle.c.o
+cc1: warning: command line option '-fno-threadsafe-statics' is valid for C++/ObjC++ but not for C
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/Fonts/Font64rle.c.o
+cc1: warning: command line option '-fno-threadsafe-statics' is valid for C++/ObjC++ but not for C
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/Fonts/Font72rle.c.o
+cc1: warning: command line option '-fno-threadsafe-statics' is valid for C++/ObjC++ but not for C
+cc1: warning: command line option '-fno-threadsafe-statics' is valid for C++/ObjC++ but not for C
+Archiving .pio/build/m5stick-c-plus/libfff/libSPI.a
+Indexing .pio/build/m5stick-c-plus/libfff/libSPI.a
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/Fonts/Font7srle.c.o
+cc1: warning: command line option '-fno-threadsafe-statics' is valid for C++/ObjC++ but not for C
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/Fonts/glcdfont.c.o
+cc1: warning: command line option '-fno-threadsafe-statics' is valid for C++/ObjC++ but not for C
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/M5Display.cpp.o
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/M5StickCPlus.cpp.o
+Archiving .pio/build/m5stick-c-plus/libfb8/libWire.a
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/RTC.cpp.o
+Indexing .pio/build/m5stick-c-plus/libfb8/libWire.a
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/utility/Button.cpp.o
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/utility/In_eSPI.cpp.o
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/utility/MPU6886.cpp.o
+In file included from /home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include/assert.h:20,
+                 from /home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_common/include/esp_assert.h:17,
+                 from /home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/soc/esp32/include/soc/soc.h:19,
+                 from /home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/hal/esp32/include/hal/gpio_ll.h:18,
+                 from .pio/libdeps/m5stick-c-plus/M5StickCPlus/src/utility/In_eSPI.h:23,
+                 from .pio/libdeps/m5stick-c-plus/M5StickCPlus/src/utility/In_eSPI.cpp:16:
+/home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/dio_qspi/include/sdkconfig.h:83: warning: "CONFIG_ARDUINO_LOOP_STACK_SIZE" redefined
+ #define CONFIG_ARDUINO_LOOP_STACK_SIZE 8192
+ 
+<command-line>: note: this is the location of the previous definition
+In file included from /home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include/assert.h:20,
+                 from /home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_common/include/esp_assert.h:17,
+                 from /home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/soc/esp32/include/soc/soc.h:19,
+                 from /home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/hal/esp32/include/hal/gpio_ll.h:18,
+                 from .pio/libdeps/m5stick-c-plus/M5StickCPlus/src/utility/In_eSPI.h:23,
+                 from .pio/libdeps/m5stick-c-plus/M5StickCPlus/src/utility/In_eSPI.cpp:16:
+/home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/dio_qspi/include/sdkconfig.h:331: warning: "CONFIG_ESP_MAIN_TASK_STACK_SIZE" redefined
+ #define CONFIG_ESP_MAIN_TASK_STACK_SIZE 4096
+ 
+<command-line>: note: this is the location of the previous definition
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/utility/MahonyAHRS.cpp.o
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/utility/Speaker.cpp.o
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/utility/Sprite.cpp.o
+Compiling .pio/build/m5stick-c-plus/libcdf/M5StickCPlus/utility/qrcode.c.o
+In file included from /home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include/assert.h:20,
+                 from /home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_common/include/esp_assert.h:17,
+                 from /home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/soc/esp32/include/soc/soc.h:19,
+                 from /home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/hal/esp32/include/hal/gpio_ll.h:18,
+                 from .pio/libdeps/m5stick-c-plus/M5StickCPlus/src/utility/In_eSPI.h:23,
+                 from .pio/libdeps/m5stick-c-plus/M5StickCPlus/src/utility/Sprite.h:10,
+                 from .pio/libdeps/m5stick-c-plus/M5StickCPlus/src/utility/Sprite.cpp:16:
+/home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/dio_qspi/include/sdkconfig.h:83: warning: "CONFIG_ARDUINO_LOOP_STACK_SIZE" redefined
+ #define CONFIG_ARDUINO_LOOP_STACK_SIZE 8192
+ 
+<command-line>: note: this is the location of the previous definition
+In file included from /home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include/assert.h:20,
+                 from /home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_common/include/esp_assert.h:17,
+                 from /home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/soc/esp32/include/soc/soc.h:19,
+                 from /home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/hal/esp32/include/hal/gpio_ll.h:18,
+                 from .pio/libdeps/m5stick-c-plus/M5StickCPlus/src/utility/In_eSPI.h:23,
+                 from .pio/libdeps/m5stick-c-plus/M5StickCPlus/src/utility/Sprite.h:10,
+                 from .pio/libdeps/m5stick-c-plus/M5StickCPlus/src/utility/Sprite.cpp:16:
+/home/marcus/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/dio_qspi/include/sdkconfig.h:331: warning: "CONFIG_ESP_MAIN_TASK_STACK_SIZE" redefined
+ #define CONFIG_ESP_MAIN_TASK_STACK_SIZE 4096
+ 
+<command-line>: note: this is the location of the previous definition
+cc1: warning: command line option '-fno-threadsafe-statics' is valid for C++/ObjC++ but not for C
+Compiling .pio/build/m5stick-c-plus/libbe8/doomgeneric/am_map.c.o
+Compiling .pio/build/m5stick-c-plus/libbe8/doomgeneric/d_event.c.o
+cc1: warning: command line option '-fno-threadsafe-statics' is valid for C++/ObjC++ but not for C
+cc1: warning: command line option '-fno-threadsafe-statics' is valid for C++/ObjC++ but not for C
+Archiving .pio/build/m5stick-c-plus/lib37f/libSPIFFS.a
+lib/doomgeneric/am_map.c:1364:6: error: conflicting types for 'AM_Responder'
+ void AM_Responder(event_t* ev) { }
+      ^~~~~~~~~~~~
+In file included from lib/doomgeneric/am_map.c:1360:
+lib/doomgeneric/am_map.h:32:9: note: previous declaration of 'AM_Responder' was here
+ boolean AM_Responder (event_t* ev);
+         ^~~~~~~~~~~~
+*** [.pio/build/m5stick-c-plus/libbe8/doomgeneric/am_map.c.o] Error 1
+Indexing .pio/build/m5stick-c-plus/lib37f/libSPIFFS.a
+========================== [FAILED] Took 2.79 seconds ==========================

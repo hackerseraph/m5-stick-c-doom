@@ -1,0 +1,24 @@
+Processing m5stick-c-plus-gba (platform: espressif32; board: m5stick-c; framework: arduino)
+--------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/espressif32/m5stick-c.html
+PLATFORM: Espressif 32 (6.12.0) > M5Stick-C
+HARDWARE: ESP32 240MHz, 320KB RAM, 4MB Flash
+DEBUG: Current (cmsis-dap) External (cmsis-dap, esp-bridge, esp-prog, iot-bus-jtag, jlink, minimodule, olimex-arm-usb-ocd, olimex-arm-usb-ocd-h, olimex-arm-usb-tiny-h, olimex-jtag-tiny, tumpa)
+PACKAGES: 
+ - framework-arduinoespressif32 @ 3.20017.241212+sha.dcc1105b 
+ - tool-esptoolpy @ 2.40900.250804 (4.9.0) 
+ - toolchain-xtensa-esp32 @ 8.4.0+2021r2-patch5
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ deep+, Compatibility ~ soft
+Found 35 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- GBADoom @ 1.0.0
+Building in release mode
+Retrieving maximum program size .pio/build/m5stick-c-plus-gba/firmware.elf
+Checking size .pio/build/m5stick-c-plus-gba/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [=         ]   7.3% (used 23916 bytes from 327680 bytes)
+Flash: [====      ]  39.5% (used 802781 bytes from 2031616 bytes)
+========================= [SUCCESS] Took 1.90 seconds =========================
