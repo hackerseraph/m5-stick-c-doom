@@ -1,3 +1,7 @@
+⚠️ **IMPORTANT: NOT FULLY WORKING YET - WORK IN PROGRESS** ⚠️
+Still working on memory limits. This project is not yet in a playable state.
+---
+
 # DOOM for M5StickC Plus - Extreme Memory Optimization Journey
 
 Port of actual id Software DOOM (not a raycasting demo) to the M5StickC Plus 1.1 using aggressive ESP32 memory hacking techniques.
